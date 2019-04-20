@@ -1,6 +1,9 @@
 FROM microsoft/dotnet:sdk AS build-env
 WORKDIR /app
 
+RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+RUN apt-get install -y nodejs
+
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
 RUN dotnet restore
@@ -13,4 +16,5 @@ RUN dotnet publish -c Release -o out
 FROM microsoft/dotnet:aspnetcore-runtime
 WORKDIR /app
 COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "aspnetapp.dll"]
+EXPOSE 5000
+ENTRYPOINT ["dotnet", "iot-app-docker.dll"]

@@ -14,6 +14,13 @@ Device 2: sivaiot.registry.io/iot-app:2
 2b. Device pulls the image from registry and doing restart once update is done
 
 ## April 15, 2019
-
+### Planned:
 1. Create a Azure IoT Hub app
 2. Create a sample IoT app in docker container
+
+### Done:
+1. Created a sample Azure IoT Hub app
+2. Created a sample IoT app using .NET Core
+
+Docker is not building - or not reporting progress (hanging). Restart of the machine will work
+
