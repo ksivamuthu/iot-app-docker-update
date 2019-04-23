@@ -13,6 +13,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Azure.IoTHub.IoTHubClient" Version="1.2.11" />
+    <PackageReference Include="Microsoft.Azure.IoTHub.MqttTransport" Version="1.2.11" />
+    <PackageReference Include="Microsoft.Azure.Devices.Client" Version="1.20.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
 
   <ItemGroup>
