@@ -10,11 +10,16 @@ RUN dotnet restore
 
 # Copy everything else and build
 COPY . ./
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -o out --no-restore
+COPY ./ClientApp/package.json out/ClientApp/
 
 # Build runtime image
 FROM  mcr.microsoft.com/dotnet/core/aspnet:2.2
 WORKDIR /app
+
+RUN curl -sL https://deb.nodesource.com/setup_10.x |  bash -
+RUN apt-get install -y nodejs
+
 COPY --from=build-env /app/out .
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "iot-app-docker.dll"]
