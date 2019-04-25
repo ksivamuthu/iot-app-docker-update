@@ -2,7 +2,7 @@
 
 ## Overview of the solution
 
-1a. Create a sample IoT app in docker container (NodeJS or .net core)
+1a. Create a sample IoT app in docker container (.Net core)
     * Serial Port communication (to demonstrate hardware communication)
     * Dashboard UI (to show some changes)
 1b. Docker Devops ( Building Cross - ARM images from Azure Devops)
@@ -31,10 +31,10 @@ Then realized port mapping command is wrong
 ## April 22, 2019
 
 Planned:
-IoT Hub is connected with .net core application
-Able to send message (Telemetry - Temperature, sensor data)
-Able to receive message (IoT Firmware update)
-Build this docker, CI/CD, push to azure container registry
+* IoT Hub is connected with .net core application
+* Able to send message (Telemetry - Temperature, sensor data)
+* Able to receive message (IoT Firmware update)
+* Build this docker, CI/CD, push to azure container registry
 
 ## Done
 1. Added IoT Device Client SDKs
@@ -45,10 +45,12 @@ Build this docker, CI/CD, push to azure container registry
 Build this docker, CI/CD, push to azure container registry
 
 ## April 24, 2019
+
 Planned:
-Build this docker, CI/CD, push to azure container registry
-Setup the watchtower
-Wireup the docker pull code from Azure IoT hub messages.
+* Build this docker, CI/CD, 
+* push to azure container registry
+* Setup the watchtower
+* Wireup the docker pull code from Azure IoT hub messages.
 
 ## Future
 Planned:
