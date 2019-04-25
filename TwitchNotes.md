@@ -46,11 +46,22 @@ Build this docker, CI/CD, push to azure container registry
 
 ## April 24, 2019
 
-Planned:
+Done:
 * Build this docker, CI/CD, 
-* push to azure container registry
-* Setup the watchtower
+* Push to azure container registry
+* Setup the watchtower. But watchtower is not pulling changes from private registries
+
+Postpone:
 * Wireup the docker pull code from Azure IoT hub messages.
+
+Notes:
+
+1. Watch tower REPO_USER, REPO_PASS is not authenticated to pull images from private registry.
+2. ASPNETCORE_ENVIRONMENT it should be production. Otherwise, even if you built release built release mode, it mess up in serving client files
+3. Rockinoutt shared Terraform blogs -  https://blog.gruntwork.io/a-comprehensive-guide-to-terraform-b3d32832baca
+4. ksivaraj - Joined our party. 
+5. Cough pills
+
 
 ## Future
 Planned:
