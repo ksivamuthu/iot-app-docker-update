@@ -62,6 +62,23 @@ Notes:
 4. ksivaraj - Joined our party. 
 5. Cough pills
 
+## April 29, 2019
+
+Planning:
+ 
+ - Watchtower automatic update when the new image is pushed to container registry
+ - Disable the pull from watchtower
+ - Implement docker api logic to pull the image.
+
+ Outcomes:
+
+ 1. Whenever new demo changes are pushed in, immediately restart the iot app container
+ 2. User/Admin has control on demand update images.
+
+Done:
+
+
+Notes:
 
 ## Future
 Planned:
