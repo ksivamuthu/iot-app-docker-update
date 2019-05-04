@@ -1,21 +1,20 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Docker.DotNet;
+using Docker.DotNet.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Azure.Devices.Client;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace iot_app_docker
 {
     public class Program
     {
+        private static readonly DockerClient _dockerClient = new DockerClientConfiguration(new Uri("unix:///var/run/docker.sock")).CreateClient();
+
         public static void Main(string[] args)
         {
             RegisterDeviceClient();
@@ -62,18 +61,57 @@ namespace iot_app_docker
                 {
                     Message receivedMessage = await deviceClient.ReceiveAsync();
                     if (receivedMessage == null) return;
+                                     
+                    var jsonStr = Encoding.ASCII.GetString(receivedMessage.GetBytes());
 
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine("Received message: {0}",
-                    Encoding.ASCII.GetString(receivedMessage.GetBytes()));
-                    Console.ResetColor();
+                    var req = JsonConvert.DeserializeObject<AppUpdateRequest>(jsonStr);
+
+                    await DownloadDockerImageLocallyAsync(req);
+
+                    await TagDockerImageLocallyAsync(req);
 
                     await deviceClient.CompleteAsync(receivedMessage);
+
                 }catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
             }, null, 0, 1000);
         }
+
+        private static async Task DownloadDockerImageLocallyAsync(AppUpdateRequest request)
+        {
+            await _dockerClient.Images.CreateImageAsync(
+                    new ImagesCreateParameters
+                    {
+                        FromSrc = "ksivamuthu.azurecr.io",
+                        Repo = request.Repository,
+                        Tag = request.Version
+                    },
+                    new AuthConfig
+                    {
+                        Username = "ksivamuthu",
+                        Password = "1+HZ3sJQDxeGw6DPouNh7MpnQL+XQAWp"
+                    }, new DockerImageDownloadProgress(),  CancellationToken.None);
+        }
+
+        private static async Task TagDockerImageLocallyAsync(AppUpdateRequest request)
+        {
+            await _dockerClient.Images.TagImageAsync($"{request.Repository}:{request.Version}", new ImageTagParameters()
+            {
+                RepositoryName = request.Repository,
+                Tag = "local"
+            }, CancellationToken.None);
+        }
+    }
+
+
+    public class DockerImageDownloadProgress : IProgress<JSONMessage>
+    {
+        public void Report(JSONMessage value)
+        {
+            Console.WriteLine(value.Status);
+        }
     }
 }
+

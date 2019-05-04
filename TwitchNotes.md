@@ -36,12 +36,12 @@ Planned:
 * Able to receive message (IoT Firmware update)
 * Build this docker, CI/CD, push to azure container registry
 
-## Done
+### Done
 1. Added IoT Device Client SDKs
 2. Added telemetry temperature sensor
 3. We are able to receive cloud messages on device
 
-## Postponed
+### Postponed
 Build this docker, CI/CD, push to azure container registry
 
 ## April 24, 2019
@@ -76,7 +76,32 @@ Planning:
  2. User/Admin has control on demand update images.
 
 Done:
+ - Watchtower automatic update when the new image is pushed to container registry
+ - Disable the pull from watchtower 
+- Implement docker api logic to pull the image.
 
+Pending:
+
+Move the logical pointer to different versions. (Tag an image programmatically)
+
+Notes:
+1. Type_theory joined in our party
+2. We discussed Indian food.
+3. ML app - to detect different Indian cuisine.
+
+In Theory: 
+
+1. Disable watch tower pull
+2. When Azure IoT hub is sending a message, 
+    - Programmatically pull the docker image (specific version - Azure iot hub sends)
+    - Watch tower refreshed the container, once the local docker image is pulled by our code.
+
+
+## May 3, 2019
+
+#### Plan
+
+1. Move the logical pointer (local tag) when iot app update is triggerred
 
 Notes:
 
@@ -84,3 +109,14 @@ Notes:
 Planned:
 Deploying this in raspberry device
 Demo - Update using docker container
+
+
+1. IoT image: latest - Run the container
+2. Watchtower - watch this iot image: local
+3. IoT image: 67 - Pull
+4. IoT image: latest
+
+Watchtower - IotImage, local
+
+Iot image - v1
+Iot image - v2, local
